@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.reim.dev'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "net.dv8tion:JDA:5.2.2"
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.1'
+    implementation 'org.slf4j:slf4j-nop:2.0.16'
+}
