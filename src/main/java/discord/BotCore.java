@@ -8,6 +8,8 @@ package discord;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import discord.command.JoinVoice;
+import discord.command.LeftVoice;
+import discord.ulti.LoadCommands;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -20,10 +22,10 @@ import java.util.EnumSet;
 
 public class BotCore {
 
-    private final JoinVoice joinVoice;
     public JDA jda;
+    private final LoadCommands loadCommands;
     public  BotCore() {
-        joinVoice = new JoinVoice();
+        loadCommands = new LoadCommands();
     }
 
     public void setBotCore() {
@@ -42,7 +44,8 @@ public class BotCore {
         catch (Exception exception) {
             System.out.printf("Found error:\n%s", exception);
         }
-        joinVoice.test(jda);
+
+        loadCommands.setLoadCommands(jda);
     }
 
     private void startBot(final String BOT_TOKEN) throws InterruptedException {
@@ -56,6 +59,7 @@ public class BotCore {
                 .setActivity(Activity.watching("By Reim developer | Make with Java"))
                 .setStatus(OnlineStatus.IDLE)
                 .addEventListeners(new JoinVoice())
+                .addEventListeners(new LeftVoice())
                 .build()
                 .awaitReady();
     }
