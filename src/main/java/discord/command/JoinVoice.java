@@ -26,14 +26,6 @@ public class JoinVoice extends ListenerAdapter {
         checkVoice = new CheckVoice();
     }
 
-    public void test(JDA jda) {
-
-        CommandListUpdateAction commands = jda.updateCommands();
-        commands.addCommands(
-                Commands.slash("join", "Join a voice channel")
-        ).queue();
-    }
-
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if(event.getName().equals("join")) {
