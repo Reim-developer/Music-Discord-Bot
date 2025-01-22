@@ -15,7 +15,6 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
 import net.dv8tion.jda.api.requests.restaction.interactions.ReplyCallbackAction;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
 
 public class Leave extends ListenerAdapter {
@@ -29,16 +28,13 @@ public class Leave extends ListenerAdapter {
             guildUlti.checkIfExists(event.getGuild(), event);
             permUlti.checkVoicePerm(event.getGuild(), event);
 
-            if(!userUlti.isBotVoice(event.getGuild(), event)) {
-                event.reply("The bot is not in any voice channel, so there's no need to leave").queue();
-                return;
-            }
+            if(userUlti.isBotVoice(event.getGuild(), event)) return;
             if(!userUlti.isVoice(event.getMember(), event)) return;
 
             AudioManager audioManager = Objects.requireNonNull(event.getGuild()).getAudioManager();
             ReplyCallbackAction replyCallbackAction = event.deferReply();
 
-            System.out.println(replyCallbackAction);
+            System.out.println("Reply callback action: " + replyCallbackAction);
             audioManager.closeAudioConnection();
 
             event.reply("Successfully leave voice channel").queue();
