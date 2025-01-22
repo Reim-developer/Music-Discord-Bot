@@ -21,10 +21,6 @@ dependencies {
     implementation("net.dv8tion:JDA:5.2.1")
 }
 
-sourceSets {
-    main { kotlin.srcDirs("src/main/kotlin") }
-}
-
 kotlin {
     jvmToolchain(17)
 }
