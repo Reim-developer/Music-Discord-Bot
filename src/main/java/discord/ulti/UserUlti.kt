@@ -12,17 +12,19 @@ import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 
 class UserUlti {
-    fun isVoice(member: Member?, event: SlashCommandInteractionEvent) {
-        if(member?.voiceState?.inAudioChannel() == false) {
-            event.reply("You need join a voice channel to use this command").queue()
-            return
-        }
-    }
-
-    fun isBotVoice(guild: Guild?, event: SlashCommandInteractionEvent) {
+    fun isBotVoice(guild: Guild?, event: SlashCommandInteractionEvent): Boolean{
         if(guild?.selfMember?.voiceState?.inAudioChannel() == true) {
             event.reply("Bot already joined voice channel ${guild.selfMember.voiceState?.channel?.asMention}").queue()
-            return
+            return true
         }
+        return false
+    }
+
+    fun isVoice(member: Member?, event: SlashCommandInteractionEvent): Boolean {
+        if(member?.voiceState?.inAudioChannel() == false) {
+            event.reply("You need join a voice channel to use this command").queue()
+            return false
+        }
+        return true
     }
 }
