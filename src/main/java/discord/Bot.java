@@ -28,7 +28,8 @@ public class Bot {
 
         EnumSet<GatewayIntent> botIntents = EnumSet.of(
                 GatewayIntent.MESSAGE_CONTENT,
-                GatewayIntent.GUILD_MEMBERS
+                GatewayIntent.GUILD_MEMBERS,
+                GatewayIntent.GUILD_VOICE_STATES
         );
         try {
             bot.jda = JDABuilder.create(botToken, botIntents)
