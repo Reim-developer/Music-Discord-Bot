@@ -13,13 +13,13 @@ import kotlinx.serialization.json.jsonPrimitive
 import java.io.File
 
 class Token {
-    fun getToken(): String?{
-        val configFile = File("./src/main/kotlin/discord/config/Config.json")
+    fun getToken(): String{
+        val configFile = File("./src/main/java/discord/config/Config.json")
         val jsonData = configFile.readText()
 
         val jsonElement = Json.parseToJsonElement(jsonData)
         val botToken = jsonElement
-            .jsonObject["BOT_TOKEN"]?.jsonPrimitive?.content
+            .jsonObject["BOT_TOKEN"]!!.jsonPrimitive.content
 
         return botToken
     }
