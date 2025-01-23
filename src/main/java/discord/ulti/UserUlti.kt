@@ -15,8 +15,7 @@ class UserUlti {
     fun isBotVoice(guild: Guild?, event: SlashCommandInteractionEvent): Boolean{
         if(guild?.selfMember?.voiceState?.inAudioChannel() == true) {
             event.reply(
-                "Bot already joined voice channel ${guild.selfMember.voiceState?.channel?.asMention}. " +
-                "You need join the same channel with bot to use this command"
+                "Bot already joined voice channel ${guild.selfMember.voiceState?.channel?.asMention}."
             ).queue()
             return true
         }
