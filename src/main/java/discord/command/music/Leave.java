@@ -10,6 +10,7 @@ package discord.command.music;
 import discord.ulti.GuildUlti;
 import discord.ulti.PermUlti;
 import discord.ulti.UserUlti;
+import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.managers.AudioManager;
@@ -28,8 +29,22 @@ public class Leave extends ListenerAdapter {
             guildUlti.checkIfExists(event.getGuild(), event);
             permUlti.checkVoicePerm(event.getGuild(), event);
 
-            if(userUlti.isBotVoice(event.getGuild(), event)) return;
             if(!userUlti.isVoice(event.getMember(), event)) return;
+
+            if (event.getMember() == null) return;
+            if (event.getMember().getVoiceState() == null) return;
+            AudioChannel authorVoice = event
+                    .getMember().getVoiceState().getChannel();
+
+            if(event.getGuild() == null) return;
+            if(event.getGuild().getSelfMember().getVoiceState() == null) return;
+            AudioChannel botVoice = event
+                    .getGuild().getSelfMember().getVoiceState().getChannel();
+
+            if(authorVoice != botVoice) {
+                event.reply("You need join the same channel with bot to use this command").queue();
+                return;
+            }
 
             AudioManager audioManager = Objects.requireNonNull(event.getGuild()).getAudioManager();
             ReplyCallbackAction replyCallbackAction = event.deferReply();
